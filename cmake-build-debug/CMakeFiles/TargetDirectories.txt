@@ -1,0 +1,6 @@
+/home/andy/CLionProjects/Progra1Datos2/cmake-build-debug/CMakeFiles/Progra1Datos2.dir
+/home/andy/CLionProjects/Progra1Datos2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/andy/CLionProjects/Progra1Datos2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/andy/CLionProjects/Progra1Datos2/cmake-build-debug/MPointers_build/CMakeFiles/MPointersLib.dir
+/home/andy/CLionProjects/Progra1Datos2/cmake-build-debug/MPointers_build/CMakeFiles/edit_cache.dir
+/home/andy/CLionProjects/Progra1Datos2/cmake-build-debug/MPointers_build/CMakeFiles/rebuild_cache.dir

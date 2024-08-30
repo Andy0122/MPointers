@@ -1,0 +1,13 @@
+# ninja log v6
+2	2208	1724987343338152526	MPointers_build/CMakeFiles/MPointersLib.dir/src/MPointer.cpp.o	81b2b999359a6922
+3	2308	1724987343339152439	CMakeFiles/Progra1Datos2.dir/main.cpp.o	dd2c3a84da58c37c
+4	2498	1724985776077968954	MPointers_build/CMakeFiles/MPointersLib.dir/src/MPointerGC.cpp.o	7a7fcd8613f392fc
+2498	2520	1724985778571973532	MPointers_build/libMPointersLib.a	787bd63b2fb62ec2
+2520	2629	1724985778593973572	Progra1Datos2	a0e82a01d2b0f99e
+1	28	1724987429716844766	build.ninja	db5491cd3fca4608
+3	23	1724987343339152439	MPointers_build/CMakeFiles/MPointersLib.dir/src/MPointerBase.cpp.o	4e4f6f918169db86
+3	1997	1724987433306549408	MPointers_build/CMakeFiles/MPointersLib.dir/src/MPointer.cpp.o	81b2b999359a6922
+4	2099	1724987433307549326	CMakeFiles/Progra1Datos2.dir/main.cpp.o	dd2c3a84da58c37c
+3	2228	1724987433306549408	MPointers_build/CMakeFiles/MPointersLib.dir/src/MPointerGC.cpp.o	7a7fcd8613f392fc
+2228	2247	1724987435531366613	MPointers_build/libMPointersLib.a	bc24ec29cac9eb1a
+2247	2365	1724987435550365052	Progra1Datos2	a0e82a01d2b0f99e
