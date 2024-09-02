@@ -1,0 +1,4 @@
+/home/andy/CLionProjects/MPointers/cmake-build-debug/CMakeFiles/MPointersLib.dir
+/home/andy/CLionProjects/MPointers/cmake-build-debug/CMakeFiles/MPointers.dir
+/home/andy/CLionProjects/MPointers/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/andy/CLionProjects/MPointers/cmake-build-debug/CMakeFiles/rebuild_cache.dir

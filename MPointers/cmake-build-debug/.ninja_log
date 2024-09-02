@@ -1,0 +1,11 @@
+# ninja log v6
+5	1959	1724618931683102938	CMakeFiles/MPointers.dir/src/MPointer.cpp.o	bab38a8d538f5e87
+1861	1884	1724619266033301382	libMPointersLib.a	2298bb5f83ba60dc
+6	2689	1724618931684102989	CMakeFiles/MPointers.dir/src/MPointerGC.cpp.o	36a7749888e4d367
+1	26	1724619279748007346	build.ninja	8eb42a3753b63d05
+2	1818	1724618993883300274	CMakeFiles/MPointers.dir/main.cpp.o	57b6f87b5b0fe6fd
+5	2646	1724618931683102938	CMakeFiles/MPointers.dir/library.cpp.o	751254daf3c417ef
+1819	1842	1724618995700393697	libMPointers.a	2c889b5355d27e12
+2	1699	1724619264174205688	CMakeFiles/MPointersLib.dir/src/MPointer.cpp.o	7afffcda0b45cba2
+3	1861	1724619264175205739	CMakeFiles/MPointersLib.dir/src/MPointerGC.cpp.o	65aa2f70b574eba0
+1884	1983	1724619266056302566	MPointers	d2aeeb1cbc1171e7

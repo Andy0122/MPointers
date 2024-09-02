@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "MPointers_build",
+		"source" : "/home/andy/CLionProjects/Progra1Datos2/MPointers"
+	}
+}
