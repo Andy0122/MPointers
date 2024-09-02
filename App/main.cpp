@@ -1,42 +1,86 @@
-#include <iostream>
-#include "../MPointers/include/MPointer.h"
-#include "../MPointers/include/MPointerGC.h"
+#include "DoublyLinkedList.h"
+#include "include/SortingAlgrithms.h"
+#include "MPointerGC.h"
 
-MPointer<int> foo() {
+int main() {
     MPointerGC& gc = MPointerGC::getInstance();
 
-    MPointer<int> temp2 = MPointer<int>::New();
-    MPointer<int> temp = MPointer<int>::New();
-    temp = 666;
-    MPointerGC::getInstance().debug();
-    return temp;
-}
+    DoublyLinkedList<int> list;
 
-int main()
-{
-    MPointerGC& gc = MPointerGC::getInstance();
+    // Agregar 10 elementos desordenados a la lista
+    list.append(5);
+    list.append(3);
+    list.append(8);
+    list.append(1);
+    list.append(9);
+    list.append(2);
+    list.append(7);
+    list.append(10);
+    list.append(4);
+    list.append(6);
 
-    MPointer<int> mp1 = MPointer<int>::New();
-    MPointer<int> mp2 = MPointer<int>::New();
-    MPointer<bool> bP = MPointer<bool>::New();
-    MPointer<bool> bP2 = bP;
-    bP = true;
-    foo();
+    std::cout << "Lista original: ";
+    list.printList();  // Debería imprimir: 5 3 8 1 9 2 7 10 4 6
 
-    MPointerGC::getInstance().debug();
+    // Estado de la memoria antes de ordenar
+    std::cout << "\nEstado de la memoria antes de ordenar:" << std::endl;
+    gc.debug();
 
-    *mp1 = 100;
-    mp2 = 55;
+    // Ordenar con Bubble Sort
+    std::cout << "\nOrdenando con Bubble Sort..." << std::endl;
+    bubbleSort(list);
+    std::cout << "Lista después de Bubble Sort: ";
+    list.printList();  // Debería imprimir: 1 2 3 4 5 6 7 8 9 10
 
-    MPointer<int> mp3 = mp2;
-    MPointerGC::getInstance().debug();
+    // Estado de la memoria después de Bubble Sort
+    std::cout << "\nEstado de la memoria después de Bubble Sort:" << std::endl;
+    gc.debug();
 
-    mp3 = mp1;
-    MPointerGC::getInstance().debug();
+    // Resetear la lista a su estado original desordenado
+    list = DoublyLinkedList<int>();
+    list.append(5);
+    list.append(3);
+    list.append(8);
+    list.append(1);
+    list.append(9);
+    list.append(2);
+    list.append(7);
+    list.append(10);
+    list.append(4);
+    list.append(6);
 
-    // Simulate some work to let the GC run:
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    gc.collectGarbage();
+    // Ordenar con Insertion Sort
+    std::cout << "\nOrdenando con Insertion Sort..." << std::endl;
+    insertionSort(list);
+    std::cout << "Lista después de Insertion Sort: ";
+    list.printList();  // Debería imprimir: 1 2 3 4 5 6 7 8 9 10
 
-    MPointerGC::getInstance().debug();
+    // Estado de la memoria después de Insertion Sort
+    std::cout << "\nEstado de la memoria después de Insertion Sort:" << std::endl;
+    gc.debug();
+
+    // Resetear la lista a su estado original desordenado
+    list = DoublyLinkedList<int>();
+    list.append(5);
+    list.append(3);
+    list.append(8);
+    list.append(1);
+    list.append(9);
+    list.append(2);
+    list.append(7);
+    list.append(10);
+    list.append(4);
+    list.append(6);
+
+    // Ordenar con QuickSort
+    std::cout << "\nOrdenando con QuickSort..." << std::endl;
+    quickSort(list);
+    std::cout << "Lista después de QuickSort: ";
+    list.printList();  // Debería imprimir: 1 2 3 4 5 6 7 8 9 10
+
+    // Estado de la memoria después de QuickSort
+    std::cout << "\nEstado de la memoria después de QuickSort:" << std::endl;
+    gc.debug();
+
+    return 0;
 }

@@ -8,24 +8,17 @@ MPointerGC::MPointerGC() {
 }
 
 void MPointerGC::startGC() {
-    /*std::thread([this]() {
+    std::thread([this]() {
         while (running) {
-            std::this_thread::sleep_for(std::chrono::seconds(10));
+            std::this_thread::sleep_for(std::chrono::seconds(1));
             collectGarbage();
         }
-    }).detach();*/
+    }).detach();
 }
 
 MPointerGC& MPointerGC::getInstance() {
     static MPointerGC instance;
     return instance;
-}
-
-int MPointerGC::addPointerCount(MPointerBase* ptr) {
-    std::lock_guard<std::mutex> lock(mtx);  // Asegura la exclusión mutua
-    int id = nextId++;  // Asigna un ID único al puntero
-    refCountList.Add(id, ptr);  // Agrega el ID y el puntero a la lista de contadores de referencias
-    return id;  // Retorna el ID asignado
 }
 
 void MPointerGC::increasePointerCount(MPointerBase* ptr) {
@@ -42,14 +35,10 @@ void MPointerGC::decreasePointerCount(MPointerBase* ptr) {
     refCountList.DecrementRefCount(id);  // Decrementa el contador de referencias
 
 }
-/*
-int MPointerGC::getPointerCount(int id) {
-    std::lock_guard<std::mutex> lock(mtx);
-    return refCountList.GetRefCount(id);
-}
-*/
+
 void MPointerGC::collectGarbage() {
     std::lock_guard<std::mutex> lock(mtx);
+    std::cout << "Collecting garbage..." << std::endl;
     refCountList.CleanUp();
 }
 
@@ -61,12 +50,12 @@ void MPointerGC::debug() {
     std::lock_guard<std::mutex> lock(mtx);
     std::cout << "Estado de la memoria:\n";
 
-    Node* current = refCountList.getHead();
+    NodeBase* current = refCountList.getHead();
     while (current != nullptr) {
-        std::cout << "ID: " << current->id
-                  << " | RefCount: " << current->refCount
-                  << " | Address: " << static_cast<void*>(current->ptr)
+        std::cout << "ID: " << current->getId()
+                  << " | RefCount: " << current->getRefCount()
+                  << " | Address: " << static_cast<void*>(current->getPtr())
                   << std::endl;
-        current = current->next;
+        current = current->getNext();
     }
 }
