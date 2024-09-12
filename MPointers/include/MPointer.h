@@ -8,64 +8,75 @@
 template <typename T>
 class MPointer : public MPointerBase {
 private:
-    T* ptr;
-    int id;
+    T* ptr;  // Puntero al dato gestionado
+    int id;  // Identificador único del MPointer
 
+    // Constructor privado
     MPointer() {
-        ptr = new T();
-        id = MPointerGC::getInstance().addPointerCount(static_cast<void*>(ptr));  // Pasas el puntero a los datos gestionados
+        ptr = new T();  // Inicializa un nuevo puntero de tipo T
+        id = MPointerGC::getInstance().addPointerCount(this);  // Registra el MPointer en el GC
     }
 
 public:
+    // Metodo estático para crear un nuevo MPointer
     static MPointer<T> New() {
         return MPointer<T>();
     }
 
+    // Constructor de copia
     MPointer(const MPointer<T>& other) {
         ptr = other.ptr;
         id = other.id;
-        MPointerGC& gc = MPointerGC::getInstance();
-
-        // Decrementar el contador de referencias en el recolector de basura
-        gc.increasePointerCount(this);
+        MPointerGC::getInstance().increasePointerCount(this);  // Incrementa el contador de referencias
     }
 
-    void printAttributes() const {
-        std::cout << "MPointer ID: " << id << ", Pointer Value: " << *ptr << std::endl;
-    }
-
-    // Sobrecarga del operador de asignación para valores del tipo T
-    MPointer<T>& operator=(const T& value) {
-        *ptr = value;
-        return *this;
-    }
-
+    // Sobrecarga del operador de asignación
     MPointer<T>& operator=(const MPointer<T>& other) {
         if (this != &other) {
-            MPointerGC::getInstance().decreasePointerCount(this);
+            MPointerGC::getInstance().decreasePointerCount(this);  // Decrementa el contador actual
             ptr = other.ptr;
             id = other.id;
-            MPointerGC::getInstance().increasePointerCount(this);
-
+            MPointerGC::getInstance().increasePointerCount(this);  // Incrementa el contador de referencias
         }
         return *this;
     }
 
+    // Sobrecarga del operador = para asignar valores del tipo T directamente al MPointer
+    MPointer<T>& operator=(const T& value) {
+        *ptr = value;  // Asigna el valor directamente al puntero interno
+        return *this;
+    }
+
+    // Sobrecarga del operador * para acceder al valor apuntado
     T& operator*() const {
         return *ptr;
     }
 
+    // Sobrecarga del operador -> para acceder a los miembros de T
     T* operator->() const {
         return ptr;
     }
 
-    ~MPointer() {
-        MPointerGC& gc = MPointerGC::getInstance();
-        gc.decreasePointerCount(this);
+    // Implementación del metodo deletePointer (desde MPointerBase)
+    void deletePointer() override {
+        delete ptr;  // Elimina el puntero gestionado de tipo T
+        ptr = nullptr;  // Asegura que el puntero no quede colgando
     }
 
+    // Implementación del metodo getId (desde MPointerBase)
     int getId() const override {
         return id;
+    }
+
+    // Devuelve la dirección de memoria del puntero gestionado
+    void* getPointer() const override {
+        return static_cast<void*>(ptr);  // Devuelve la dirección del puntero interno
+    }
+
+
+    // Destructor
+    ~MPointer() {
+        MPointerGC::getInstance().decreasePointerCount(this);  // Decrementa el contador de referencias al destruirse
     }
 };
 

@@ -5,39 +5,27 @@
 #include <chrono>
 #include <mutex>
 #include "MPointerBase.h"
+#include "Node.h"
 #include "RefCountList.h"
 
 class MPointerGC {
 private:
-    RefCountList refCountList;
-    std::mutex mtx;
-    bool running = true;
-    int nextId = 1;
+    RefCountList refCountList;  // Lista enlazada para gestionar punteros a MPointerBase
+    std::mutex mtx;  // Mutex para proteger el acceso concurrente
+    bool running = true;  // Controla si el recolector de basura está en funcionamiento
+    int nextId = 1;  // Generador de IDs únicos para los MPointers
 
-    MPointerGC();  // Declaración, pero no definición
-    void startGC();  // Declaración
+    MPointerGC();  // Constructor privado, inicia el GC
+    void startGC();  // Metodo que ejecuta el recolector de basura
 
 public:
-    static MPointerGC& getInstance();  // Declaración
-
-    template <typename T>
-    int addPointerCount(T* ptr) {
-        std::lock_guard<std::mutex> lock(mtx);  // Asegura la exclusión mutua
-        int id = nextId++;  // Asigna un ID único al puntero
-
-        Node<T>* newNode = new Node<T>(id, ptr);  // Crear un nodo específico para el tipo T
-        refCountList.Add(newNode);  // Añadir el nodo a la lista
-
-        return id;  // Retorna el ID asignado
-    }
-
-    void increasePointerCount(MPointerBase* ptr);
-    void decreasePointerCount(MPointerBase* ptr);
-    void collectGarbage();
-    void debug();
-
-    ~MPointerGC();
-
+    static MPointerGC& getInstance();  // Metodo estático para obtener la instancia singleton del GC
+    int addPointerCount(MPointerBase* ptr);  // Añade un nuevo MPointerBase al recolector
+    void increasePointerCount(MPointerBase* ptr);  // Incrementa el contador de referencias
+    void decreasePointerCount(MPointerBase* ptr);  // Decrementa el contador de referencias
+    void collectGarbage();  // Ejecuta la recolección de basura
+    void debug();  // Declaración del metodo debug
+    ~MPointerGC();  // Destructor
 };
 
 #endif // MPOINTERGC_H
