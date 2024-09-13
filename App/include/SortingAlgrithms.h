@@ -3,89 +3,73 @@
 
 #include "DoublyLinkedList.h"
 
-// Bubble Sort
-template <typename T>
-void bubbleSort(DoublyLinkedList<T>& list) {
-    if (list.isEmpty()) {return;}
-    bool swapped;
-    int n = list.getSize();
-    do {
-        swapped = false;
-        MPointer<Node<T>> current = list.getHead();
-        for (int i = 0; i < n - 1; i++) {
-            MPointer<Node<T>> nextNode = (*current)->next;
-            if (*(*current)->data > *(*nextNode)->data) {
-                list.swap(current, nextNode);
-                swapped = true;
+void bubbleSort(DoublyLinkedList<int>& list) {
+    int n = list.size();  // Obtenemos el tamaño de la lista
+
+    // Bucle externo que corresponde al número de elementos a ordenar
+    for (int i = 0; i < n - 1; i++) {
+        // Bucle interno para comparar nodos adyacentes por índice
+        for (int j = 0; j < n - i - 1; j++) {
+            // Si los nodos adyacentes están en el orden incorrecto, intercambiamos
+            if (list[j] > list[j + 1]) {
+                list.swap(j, j + 1);  // Intercambia nodos completos
             }
-            current = nextNode;
         }
-        n--;  // Reduce el número de elementos a revisar después de cada iteración
-    } while (swapped);
-}
-
-// Insertion Sort
-template <typename T>
-void insertionSort(DoublyLinkedList<T>& list) {
-    if (list.isEmpty()) {
-        return;
-    }
-    MPointer<Node<T>> current = list.getHead()->next;  // Comienza con el segundo nodo
-    while (current != nullptr) {
-        T key = *(*current)->data;
-        MPointer<Node<T>> prev = (*current)->prev;
-        // Mueve los elementos de la lista que son mayores que la clave
-        // a una posición adelante de su posición actual
-        while (prev != nullptr && *(*prev)->data > key) {
-            *(*prev->next)->data = *(*prev)->data;
-            prev = (*prev)->prev;
-        }
-        // Coloca la clave en la posición correcta
-        if (prev == nullptr) {
-            *(*list.getHead())->data = key;
-        } else {
-            *(*prev->next)->data = key;
-        }
-        current = (*current)->next;
     }
 }
 
-// Función auxiliar para particionar la lista
-template <typename T>
-MPointer<Node<T>> partition(MPointer<Node<T>> low, MPointer<Node<T>> high) {
-    T pivot = *(*high)->data;  // Selecciona el último elemento como pivote
-    MPointer<Node<T>> i = low->prev;
-    for (MPointer<Node<T>> j = low; j != high; j = (*j)->next) {
-        if (*(*j)->data <= pivot) {
-            i = (i == nullptr) ? low : (*i)->next;  // Incrementa i si es nullptr
-            // Intercambia los datos en i y j
-            T temp = *(*i)->data;
-            *(*i)->data = *(*j)->data;
-            *(*j)->data = temp;
+int partition(DoublyLinkedList<int>& list, int low, int high) {
+
+    // Seleccionar el último elemento como pivote
+    int pivot = list[high];
+
+    // Índice del elemento justo antes del último
+    int i = (low - 1);
+
+    for (int j = low; j <= high - 1; j++) {
+
+        // Si el elemento actual es menor o igual que el pivote
+        if (list[j] <= pivot) {
+            i++;
+            list.swap(i, j);
         }
     }
-    i = (i == nullptr) ? low : (*i)->next;  // Incrementa i para el último intercambio
-    // Intercambia los datos en i y high (pivote)
-    T temp = *(*i)->data;
-    *(*i)->data = *(*high)->data;
-    *(*high)->data = temp;
-    return i;
-}
 
-// Implementación de QuickSort para la lista doblemente enlazada
-template <typename T>
-void quickSort(MPointer<Node<T>> low, MPointer<Node<T>> high) {
-    if (high != nullptr && low != high && low != (*high)->next) {
-        MPointer<Node<T>> pivotNode = partition(low, high);
-        quickSort(low, (*pivotNode)->prev);
-        quickSort((*pivotNode)->next, high);
+    // Poner el pivote en su posición correcta
+    list.swap(i + 1, high);
+
+    // Devolver el índice de partición
+    return (i + 1);
+}
+void quickSort(DoublyLinkedList<int>& list, int low, int high) {
+
+    // Caso base: continuar hasta que low sea menor que high
+    if (low < high) {
+
+        // pi es el índice de partición, list[pi] está en la posición correcta
+        int pi = partition(list, low, high);
+
+        // Ordenar recursivamente los elementos antes y después de la partición
+        quickSort(list, low, pi - 1);
+        quickSort(list, pi + 1, high);
     }
 }
 
-// Función de conveniencia para llamar a quickSort desde la clase DoublyLinkedList
-template <typename T>
-void quickSort(DoublyLinkedList<T>& list) {
-    quickSort(list.getHead(), list.getTail());
+void insertionSort(DoublyLinkedList<int>& list) {
+    int n = list.size();  // Obtenemos el tamaño de la lista
+
+    // Empezamos desde el segundo elemento
+    for (int i = 1; i < n; ++i) {
+        int key = list[i];  // El elemento que queremos ordenar
+        int j = i - 1;
+
+        // Mover los elementos que son mayores que `key` una posición adelante
+        while (j >= 0 && list[j] > key) {
+            list[j + 1] = list[j];  // Desplazar el elemento hacia adelante
+            j = j - 1;
+        }
+        list[j + 1] = key;  // Insertar el elemento en la posición correcta
+    }
 }
 
 #endif // SORTING_ALGORITHMS_H

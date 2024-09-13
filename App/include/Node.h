@@ -4,13 +4,13 @@
 #include "MPointer.h"
 
 template <typename T>
-class Node {
+class Nodo {
 public:
     MPointer<T> data;
-    MPointer<Node<T>> next;
-    MPointer<Node<T>> prev;
+    MPointer<Nodo<T>> next;
+    MPointer<Nodo<T>> prev;
 
-    Node(T value) : data(MPointer<T>::New()) {
+    Nodo(T value) : data(MPointer<T>::New()) {
         *data = value;
         next = nullptr;
         prev = nullptr;

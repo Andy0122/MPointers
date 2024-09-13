@@ -1,130 +1,212 @@
-#ifndef DOUBLYLINKEDLIST_H
-#define DOUBLYLINKEDLIST_H
+#ifndef DOUBLY_LINKED_LIST_H
+#define DOUBLY_LINKED_LIST_H
 
-#include "Node.h"
 #include "MPointer.h"
 
-template <typename T>
+template<typename T>
 class DoublyLinkedList {
 private:
-    MPointer<Node<T>> head;
-    MPointer<Node<T>> tail;
-    int size;
+    struct Node {
+        T data;  // Valor del nodo
+        MPointer<Node> prev;  // Puntero al nodo anterior
+        MPointer<Node> next;  // Puntero al siguiente nodo
+
+        Node(T value) : data(value), prev(nullptr), next(nullptr) {}
+        // Constructor por defecto
+        Node() : data(T()), prev(nullptr), next(nullptr) {}
+    };
+
+    MPointer<Node> head;  // Cabeza de la lista
+    MPointer<Node> tail;  // Cola de la lista
+    int listSize;  // Tamaño de la lista
 
 public:
-    DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+    // Constructor de la lista
+    DoublyLinkedList() : head(nullptr), tail(nullptr), listSize(0) {}
 
-    bool isEmpty() const {
-        return head == nullptr;
+    // Obtener el tamaño de la lista
+    int size() const {
+        return listSize;
     }
 
+    // Obtener el valor de un nodo en una posición específica
+    T get(int index) const {
+        if (index < 0 || index >= listSize) {
+            throw std::out_of_range("Índice fuera de rango");
+        }
+        MPointer<Node> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+        return current->data;
+    }
+
+    // Modificar el valor de un nodo en una posición específica
+    void set(int index, T value) {
+        if (index < 0 || index >= listSize) {
+            throw std::out_of_range("Índice fuera de rango");
+        }
+        MPointer<Node> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current->next;
+        }
+        current->data = value;
+    }
+
+    // Insertar un nuevo elemento al final de la lista
     void append(T value) {
-        MPointer<Node<T>> newNode = MPointer<Node<T>>::New();
-        *newNode = Node<T>(value);
+        MPointer<Node> newNode = MPointer<Node>::New();  // Crear un nuevo nodo con MPointer
+        *newNode = Node(value);  // Asignar el valor al nodo
 
-        if (isEmpty()) {
+        if (tail == nullptr) {  // Lista vacía
             head = newNode;
             tail = newNode;
         } else {
-            (*tail)->next = newNode;
-            (*newNode)->prev = tail;
-            tail = newNode;
+            newNode->prev = tail;  // El nuevo nodo apunta a la cola actual
+            tail->next = newNode;  // La cola actual apunta al nuevo nodo
+            tail = newNode;  // Actualizar la cola
         }
-        size++;
+        listSize++;
     }
 
-    void prepend(T value) {
-        MPointer<Node<T>> newNode = MPointer<Node<T>>::New();
-        *newNode = Node<T>(value);
-
-        if (isEmpty()) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            (*head)->prev = newNode;
-            (*newNode)->next = head;
-            head = newNode;
-        }
-        size++;
-    }
-
-    void removeHead() {
-        if (isEmpty()) {
-            return;
+    // Insertar un nuevo nodo en una posición específica
+    void insertAt(T value, int index) {
+        if (index < 0 || index > listSize) {
+            throw std::out_of_range("Índice fuera de rango");
         }
 
-        if (head == tail) {
-            head = nullptr;
-            tail = nullptr;
-        } else {
-            head = (*head)->next;
-            (*head)->prev = nullptr;
-        }
-        size--;
-    }
+        MPointer<Node> newNode = MPointer<Node>::New();  // Crear un nuevo nodo con MPointer
+        *newNode = Node(value);  // Asignar el valor al nodo
 
-    void removeTail() {
-        if (isEmpty()) {
-            return;
-        }
-
-        if (head == tail) {
-            head = nullptr;
-            tail = nullptr;
-        } else {
-            tail = (*tail)->prev;
-            (*tail)->next = nullptr;
-        }
-        size--;
-    }
-
-    // Acceso a nodos
-    MPointer<Node<T>> getHead() const {
-        return head;
-    }
-
-    MPointer<Node<T>> getTail() const {
-        return tail;
-    }
-
-    // Metodo para obtener un nodo en una posición específica
-    MPointer<Node<T>> getNodeAt(int index) const {
-        if (index < 0 || index >= size) {
-            return nullptr;  // Índice fuera de rango
-        }
-
-        MPointer<Node<T>> current;
-        if (index < size / 2) {
-            current = head;
-            for (int i = 0; i < index; i++) {
-                current = (*current)->next;
+        if (index == 0) {  // Insertar en la cabeza
+            newNode->next = head;
+            if (head != nullptr) {
+                head->prev = newNode;
             }
-        } else {
-            current = tail;
-            for (int i = size - 1; i > index; i--) {
-                current = (*current)->prev;
+            head = newNode;
+            if (listSize == 0) {
+                tail = newNode;  // Si la lista estaba vacía
             }
+        } else if (index == listSize) {  // Insertar en la cola
+            append(value);
+            return;
+        } else {
+            MPointer<Node> current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current->next;
+            }
+            newNode->next = current->next;
+            newNode->prev = current;
+            if (current->next != nullptr) {
+                current->next->prev = newNode;
+            }
+            current->next = newNode;
+        }
+        listSize++;
+    }
+/*
+    // Eliminar un nodo con un valor específico
+    void remove(T value) {
+        MPointer<Node> current = head;
+
+        // Recorrer la lista en busca del valor
+        while (current != nullptr) {
+            if (current->data == value) {
+                std::cout << "Eliminando nodo con valor: " << value << std::endl;
+                std::cout << "Puntero actual: " << current.getPointer() << std::endl;
+                std::cout << "Puntero prev: " << (current->prev != nullptr ? current->prev.getPointer() : nullptr) << std::endl;
+                std::cout << "Puntero next: " << (current->next != nullptr ? current->next.getPointer() : nullptr) << std::endl;
+
+                // Ajustar el puntero 'next' del nodo anterior si existe
+                if (current->prev != nullptr) {
+                    current->prev->next = current->next;
+                } else {
+                    head = current->next;  // Si es el primer nodo, actualizar la cabeza
+                }
+
+                // Ajustar el puntero 'prev' del nodo siguiente si existe
+                if (current->next != nullptr) {
+                    current->next->prev = current->prev;
+                } else {
+                    tail = current->prev;  // Si es el último nodo, actualizar la cola
+                }
+
+                // Establecer los punteros del nodo actual a nullptr
+                current->prev = nullptr;
+                current->next = nullptr;
+
+                current = nullptr;  // Esto eliminará el nodo de forma segura
+
+                listSize--;  // Reducir el tamaño de la lista
+                return;  // Salir de la función después de eliminar el nodo
+            }
+            current = current->next;
+        }
+    }
+*/
+
+    // Imprimir la lista hacia adelante
+    void printForward() const {
+        MPointer<Node> current = head;
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->next;
+        }
+        std::cout << std::endl;
+    }
+
+    // Imprimir la lista hacia atrás
+    void printBackward() const {
+        MPointer<Node> current = tail;
+        while (current != nullptr) {
+            std::cout << current->data << " ";
+            current = current->prev;
+        }
+        std::cout << std::endl;
+    }
+
+    void swap(int index1, int index2) {
+        if (index1 == index2) return;
+
+        // Obtener los nodos en las posiciones index1 y index2
+        MPointer<Node> node1 = getNodeAt(index1);
+        MPointer<Node> node2 = getNodeAt(index2);
+
+        if (node1 == nullptr || node2 == nullptr) return;
+
+        // Intercambiar los datos de los nodos
+        std::swap(node1->data, node2->data);
+    }
+
+    MPointer<Node> getNodeAt(int index) const {
+        if (index < 0 || index >= listSize) {
+            return nullptr;  // Retorna nullptr si el índice es inválido
+        }
+
+        MPointer<Node> current = head;
+        for (int i = 0; i < index && current != nullptr; i++) {
+            current = current->next;
         }
         return current;
     }
 
-    // Metodo para intercambiar los datos de dos nodos
-    void swap(MPointer<Node<T>> node1, MPointer<Node<T>> node2) {
-        if (node1 != nullptr && node2 != nullptr) {
-            T temp = *(*node1)->data;
-            *(*node1)->data = *(*node2)->data;
-            *(*node2)->data = temp;
+    // Sobrecarga del operador [] para acceder a los elementos por índice
+    int& operator[](int index) {
+        MPointer<Node> node = getNodeAt(index);
+        if (node == nullptr) {
+            throw std::out_of_range("Índice fuera de rango");
         }
+        return node->data;
     }
 
-    void printList() const {
-        MPointer<Node<T>> current = head;
+    // Destructor para limpiar los nodos
+    ~DoublyLinkedList() {
+        MPointer<Node> current = head;
         while (current != nullptr) {
-            std::cout << *(*current)->data << " ";
-            current = (*current)->next;
+            MPointer<Node> next = current->next;
+            current = next;
         }
-        std::cout << std::endl;
     }
 };
 
-#endif // DOUBLYLINKEDLIST_H
+#endif  // DOUBLY_LINKED_LIST_H
