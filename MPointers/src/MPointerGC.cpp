@@ -12,8 +12,9 @@ MPointerGC::MPointerGC() {
 void MPointerGC::startGC() {
     std::thread([this]() {
         while (running) {
-            std::this_thread::sleep_for(std::chrono::seconds(3));  // Pausa de 1 segundo entre ciclos
+            std::this_thread::sleep_for(std::chrono::seconds(1));  // Pausa de 1 segundo entre ciclos
             collectGarbage();
+            //debug();
         }
     }).detach();  // Hilo ejecutado en segundo plano
 }
@@ -55,9 +56,14 @@ void MPointerGC::decreasePointerCount(MPointerBase* ptr) {
         //std::cout << "Checking node with ID: " << node->getId() << std::endl;
         if (node->getId() == id && node->getRefCount() == 0) {
             //std::cout << "Deleting pointer for node with ID: " << id << std::endl;
-            node->getMPointer()->deletePointer();  // Elimina el puntero
-
-            node->setMPointer(nullptr);
+            try {
+                node->getMPointer()->deletePointer();  // Elimina el puntero
+                node->setMPointer(nullptr);  // Establece el puntero a nullptr
+            } catch (const std::exception& e) {
+                std::cerr << "Excepción al eliminar el puntero: " << e.what() << std::endl;
+            } catch (...) {
+                std::cerr << "Excepción desconocida al eliminar el puntero." << std::endl;
+            }
             break;
         }
         node = node->getNext();

@@ -23,6 +23,9 @@ public:
         return MPointer<T>();
     }
 
+    // Constructor que acepta nullptr
+    MPointer(std::nullptr_t) : ptr(nullptr), id(-1) {}
+
     // Constructor de copia
     MPointer(const MPointer<T>& other) {
         ptr = other.ptr;
@@ -76,7 +79,17 @@ public:
 
     // Destructor
     ~MPointer() {
+        //std::cout << "DESTRUCTOR MPOINTER" << std::endl;
         MPointerGC::getInstance().decreasePointerCount(this);  // Decrementa el contador de referencias al destruirse
+    }
+
+    // Sobrecarga de operadores de comparación con nullptr
+    bool operator==(std::nullptr_t) const {
+        return ptr == nullptr;
+    }
+
+    bool operator!=(std::nullptr_t) const {
+        return ptr != nullptr;
     }
 };
 
