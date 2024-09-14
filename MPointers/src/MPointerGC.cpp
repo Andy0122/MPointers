@@ -13,8 +13,9 @@ void MPointerGC::startGC() {
     std::thread([this]() {
         while (running) {
             std::this_thread::sleep_for(std::chrono::seconds(1));  // Pausa de 1 segundo entre ciclos
+            std::cout << "\nEjecutando garbageCollector" << std::endl;
             collectGarbage();
-            //debug();
+
         }
     }).detach();  // Hilo ejecutado en segundo plano
 }
@@ -83,7 +84,7 @@ void MPointerGC::debug() {
     Node* current = refCountList.getHead();
     while (current != nullptr) {
         std::cout << "ID: " << current->getId() << " | RefCount: " << current->getRefCount();
-
+/*
         // Verificamos si el MPointer aún existe (es decir, si el puntero no es nullptr)
         if (current->getMPointer() != nullptr) {
             try {
@@ -97,6 +98,7 @@ void MPointerGC::debug() {
         }
 
         current = current->getNext();
+*/
     }
 }
 // Destructor que detiene el recolector de basura
