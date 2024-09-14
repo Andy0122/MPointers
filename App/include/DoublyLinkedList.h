@@ -69,6 +69,19 @@ public:
         listSize++;
     }
 
+    T getAt(int index) {
+        MPointer<Node> current = head;  // Debes usar MPointer aquí en lugar de Node*
+        int count = 0;
+        while (current != nullptr) {
+            if (count == index) {
+                return current->data;  // Accede a los datos a través de MPointer
+            }
+            count++;
+            current = current->next;  // MPointer sabe cómo manejar esto
+        }
+        throw std::out_of_range("Índice fuera de rango");
+    }
+
     // Insertar un nuevo nodo en una posición específica
     void insertAt(T value, int index) {
         if (index < 0 || index > listSize) {
