@@ -10,7 +10,8 @@ add_subdirectory(../MPointers ${CMAKE_BINARY_DIR}/MPointers_build)
 add_executable(App main.cpp
         include/DoublyLinkedList.h
         include/Node.h
-        include/SortingAlgrithms.h)
+        include/SortingAlgrithms.h
+)
 
 # Vincula la biblioteca MPointersLib con tu aplicación
 target_link_libraries(App PRIVATE MPointersLib)
@@ -21,3 +22,8 @@ target_include_directories(App PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include  # Directorio de cabecera del proyecto App
 )
 
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_executable(runTests tests/test.cpp)
+target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)

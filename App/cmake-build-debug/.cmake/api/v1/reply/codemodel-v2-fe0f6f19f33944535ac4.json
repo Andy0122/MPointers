@@ -19,7 +19,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						2
 					]
 				},
 				{
@@ -53,7 +54,8 @@
 					"name" : "App",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						2
 					]
 				},
 				{
@@ -74,7 +76,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "App::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-App-Debug-405965e8c37853b1e0f7.json",
+					"jsonFile" : "target-App-Debug-409abbdf8aec81511f2b.json",
 					"name" : "App",
 					"projectIndex" : 0
 				},
@@ -84,6 +86,13 @@
 					"jsonFile" : "target-MPointersLib-Debug-56230ecb4a14ac5c7006.json",
 					"name" : "MPointersLib",
 					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "runTests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-runTests-Debug-447b9ca519009bb70ff3.json",
+					"name" : "runTests",
+					"projectIndex" : 0
 				}
 			]
 		}

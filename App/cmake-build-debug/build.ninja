@@ -73,6 +73,38 @@ build App: CXX_EXECUTABLE_LINKER__App_Debug CMakeFiles/App.dir/main.cpp.o | MPoi
   TARGET_FILE = App
   TARGET_PDB = App.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target runTests
+
+
+#############################################
+# Order-only phony target for runTests
+
+build cmake_object_order_depends_target_runTests: phony || .
+
+build CMakeFiles/runTests.dir/tests/test.cpp.o: CXX_COMPILER__runTests_unscanned_Debug /home/andy/CLionProjects/Progra1Datos2/App/tests/test.cpp || cmake_object_order_depends_target_runTests
+  DEP_FILE = CMakeFiles/runTests.dir/tests/test.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -DGTEST_HAS_PTHREAD=1
+  OBJECT_DIR = CMakeFiles/runTests.dir
+  OBJECT_FILE_DIR = CMakeFiles/runTests.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target runTests
+
+
+#############################################
+# Link the executable runTests
+
+build runTests: CXX_EXECUTABLE_LINKER__runTests_Debug CMakeFiles/runTests.dir/tests/test.cpp.o | /usr/lib/x86_64-linux-gnu/libgtest.a
+  FLAGS = -g
+  LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libgtest.a  -lpthread
+  OBJECT_DIR = CMakeFiles/runTests.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = runTests
+  TARGET_PDB = runTests.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -176,7 +208,7 @@ build libMPointersLib.a: phony MPointers_build/libMPointersLib.a
 #############################################
 # Folder: /home/andy/CLionProjects/Progra1Datos2/App/cmake-build-debug
 
-build all: phony App MPointers_build/all
+build all: phony App runTests MPointers_build/all
 
 # =============================================================================
 
@@ -192,14 +224,14 @@ build MPointers_build/all: phony MPointers_build/libMPointersLib.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/andy/CLionProjects/Progra1Datos2/App/CMakeLists.txt /home/andy/CLionProjects/Progra1Datos2/MPointers/CMakeLists.txt /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/andy/CLionProjects/Progra1Datos2/App/CMakeLists.txt /home/andy/CLionProjects/Progra1Datos2/MPointers/CMakeLists.txt /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindGTest.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindThreads.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/GoogleTest.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestTargets-none.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestTargets.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/andy/CLionProjects/Progra1Datos2/App/CMakeLists.txt /home/andy/CLionProjects/Progra1Datos2/MPointers/CMakeLists.txt /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
+build /home/andy/CLionProjects/Progra1Datos2/App/CMakeLists.txt /home/andy/CLionProjects/Progra1Datos2/MPointers/CMakeLists.txt /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CheckIncludeFile.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/CheckLibraryExists.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindGTest.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindPackageHandleStandardArgs.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindPackageMessage.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/FindThreads.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/GoogleTest.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/292/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestTargets-none.cmake /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestTargets.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
 
 
 #############################################
